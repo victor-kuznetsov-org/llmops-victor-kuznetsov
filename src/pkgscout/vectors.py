@@ -29,7 +29,7 @@ def connect(profile: str, instance: str, database: str) -> psycopg.Connection:
     )
 
 
-def embed(texts: list[str], client, batch: int = 16) -> list[list[float]]:  # noqa: ANN001
+def embed(texts: list[str], client, batch: int = 16) -> list[list[float]]:
     """Embed texts with the course's embedding service (truncated to 2000 characters)."""
     out: list[list[float]] = []
     for i in range(0, len(texts), batch):
