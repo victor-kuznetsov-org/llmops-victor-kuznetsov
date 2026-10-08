@@ -1,0 +1,47 @@
+# Project configuration for the LLMOps course, filled in for you at onboarding.
+# Every value below was provisioned for you in the course workspace; you configure nothing.
+
+# Your usage policy: set it on every serverless job, endpoint and app you create.
+usage_policy_id: "52510d25-663b-3a82-8dce-8429afcbe2cb"
+
+# Development: your own schema in the dev catalog, which you manage and work in.
+dev:
+  catalog: "llmops_dev"
+  schema: "victor_kuznetsov"
+  volume: "arxiv_files"
+  llm_endpoint: "course_ops.gateway.chat"
+  embedding_endpoint: "databricks-gte-large-en"
+  vector_search_endpoint: "vs-llmops"
+  warehouse_id: "992f5f04071d814b"
+  experiment_path: "/llmops/victor_kuznetsov"
+  # The cohort's Lakebase instance of dev and your own database on it, for pgvector and memory.
+  lakebase_instance: "lb-llmops-dev"
+  lakebase_database: "victor_kuznetsov"
+
+# Acceptance: your schema in the acceptance catalog, written by your deploys; you read it.
+acc:
+  catalog: "llmops_acc"
+  schema: "victor_kuznetsov"
+  volume: "arxiv_files"
+  llm_endpoint: "course_ops.gateway.chat"
+  embedding_endpoint: "databricks-gte-large-en"
+  vector_search_endpoint: "vs-llmops"
+  warehouse_id: "992f5f04071d814b"
+  experiment_path: "/llmops/victor_kuznetsov"
+  # The acceptance instance and your database on it, written by your deploys; you read it.
+  lakebase_instance: "lb-llmops-acc"
+  lakebase_database: "victor_kuznetsov"
+
+# Production: your schema in the production catalog, written by your deploys; you read it.
+prd:
+  catalog: "llmops_prd"
+  schema: "victor_kuznetsov"
+  volume: "arxiv_files"
+  llm_endpoint: "course_ops.gateway.chat"
+  embedding_endpoint: "databricks-gte-large-en"
+  vector_search_endpoint: "vs-llmops"
+  warehouse_id: "992f5f04071d814b"
+  experiment_path: "/llmops/victor_kuznetsov"
+  # The production instance and your database on it, written by your deploys; you read it.
+  lakebase_instance: "lb-llmops-prd"
+  lakebase_database: "victor_kuznetsov"
