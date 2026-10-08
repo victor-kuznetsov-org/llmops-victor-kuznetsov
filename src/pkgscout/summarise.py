@@ -8,7 +8,7 @@ import yaml
 CONFIG_PATH = Path(__file__).resolve().parents[2] / "project_config.yml"
 
 
-def get_client() -> Any:  # noqa: ANN401
+def get_client() -> Any:
     """OpenAI client of the course's AI Gateway (profile from DATABRICKS_CONFIG_PROFILE)."""
     from databricks_openai import DatabricksOpenAI
 
@@ -20,7 +20,7 @@ def llm_endpoint(env: str = "dev") -> str:
         return yaml.safe_load(f)[env]["llm_endpoint"]
 
 
-def summarise(client: Any, endpoint: str, name: str, description: str) -> tuple[str, dict]:  # noqa: ANN401
+def summarise(client: Any, endpoint: str, name: str, description: str) -> tuple[str, dict]:
     """Summarise one package's description in three lines; return (text, token usage)."""
     response = client.chat.completions.create(
         model=endpoint,
