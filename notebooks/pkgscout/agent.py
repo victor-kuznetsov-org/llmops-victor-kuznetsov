@@ -2,6 +2,7 @@
 from pathlib import Path
 from uuid import uuid4
 
+import psycopg
 import yaml
 from databricks.connect import DatabricksSession
 from databricks_openai import DatabricksOpenAI
@@ -27,12 +28,14 @@ try:
     conn = connect(PROFILE, cfg["lakebase_instance"], cfg["lakebase_database"])
     tools.insert(0, make_search_tool(conn, client))
     memory = ChatMemory(conn)
-except Exception as e:  # e.g. the sandbox cannot reach Lakebase on port 5432
+except (OSError, psycopg.OperationalError) as e:  # the sandbox cannot reach Lakebase on port 5432
     print("Lakebase unreachable, running with the version tool only:", e)
 
 # 3.1: each tool called once
 for t in tools:
-    args = {"query": "send an async HTTP request"} if t.name == "search_chunks" else {"name": "httpx"}
+    args = (
+        {"query": "send an async HTTP request"} if t.name == "search_chunks" else {"name": "httpx"}
+    )
     print(t.name, "->", t.exec_fn(**args)[:300])
 
 # 3.3 + 3.4: session one, a few turns, saved to Lakebase after each turn

@@ -7,7 +7,7 @@ from pkgscout.memory import ChatMemory
 from pkgscout.tools import ToolInfo, version_spec
 
 
-def _resp(content=None, calls=None):  # noqa: ANN001, ANN202
+def _resp(content=None, calls=None):
     message = SimpleNamespace(content=content, tool_calls=calls)
     return SimpleNamespace(choices=[SimpleNamespace(message=message)])
 
@@ -17,9 +17,7 @@ def test_run_turn_calls_tool_then_answers() -> None:
     call = SimpleNamespace(id="c1", function=fn)
     client = MagicMock()
     client.chat.completions.create.side_effect = [_resp(calls=[call]), _resp("0.28")]
-    tool = ToolInfo(
-        name="latest_version", spec=version_spec(), exec_fn=lambda name: f"{name} 0.28"
-    )
+    tool = ToolInfo(name="latest_version", spec=version_spec(), exec_fn=lambda name: f"{name} 0.28")
     new = run_turn(client, "m", [tool], [{"role": "user", "content": "q"}])
     assert [m["role"] for m in new] == ["assistant", "tool", "assistant"]
     assert new[1]["content"] == "httpx 0.28"
